@@ -1,0 +1,125 @@
+﻿<UserControl x:Class="VeganGO.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:VeganGO.ViewModels"
+             xmlns:controls="clr-namespace:VeganGO.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel VerticalAlignment="Center" Opacity="0.8">
+        <Grid Width="400">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox">
+                    <Setter Property="FontWeight" Value="Thin" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="AcceptsReturn" Value="True" />
+                    <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True" />
+                    <Setter Property="Cursor" Value="IBeam" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Validation.ErrorTemplate">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder />
+                                    <ItemsControl
+                                        Margin="0 5 0 0"
+                                        FontSize="12"
+                                        ItemsSource="{Binding}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" 
+                       Text="Регистрация"
+                       TextAlignment="Center"
+                       Style="{StaticResource BaseHeaderStyle}" />
+            <TextBox Grid.Row="1"
+                     Margin="0 0 0 0"
+                     materialDesign:HintAssist.Hint="Логин"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2"
+                     Margin="0 15 0 0"
+                     materialDesign:HintAssist.Hint="Фамилия"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="3"
+                     Margin="0 15 0 0"
+                     materialDesign:HintAssist.Hint="Имя"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="4"
+                     Margin="0 15 0 0"
+                     materialDesign:HintAssist.Hint="Отчество"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="5"
+                     Margin="0 15 0 0"
+                     materialDesign:HintAssist.Hint="Номер телефона"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Grid.Row="6"
+                         Margin="0 15 0 0"
+                         materialDesign:HintAssist.Hint="Пароль"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" 
+                         materialDesign:PasswordBoxAssist.Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+            <PasswordBox Grid.Row="7"
+                         Margin="0 15 0 0"
+                         materialDesign:HintAssist.Hint="Повторить пароль"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}" 
+                         materialDesign:PasswordBoxAssist.Password="{Binding Path=ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+            <StackPanel Grid.Row="8"
+                        Margin="0 25 0 0"
+                        Orientation="Horizontal">
+                <Button Content="Зарегистрироваться"
+                        Height="50"
+                        Width="180"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding RegistrationCommand}" />
+                <Button Content="О веганстве"
+                        Margin="10 0 0 0"
+                        Height="50"
+                        Width="210"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+            </StackPanel>
+            <StackPanel Grid.Row="9">
+                <TextBlock TextAlignment="Center" Margin="0 10 0 0">
+                    <Hyperlink Command="{Binding UpdateCurrentViewModelCommand}"
+                               CommandParameter="{x:Static viewModels:ViewType.Login}">Уже зарегистрированы?</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <controls:Error HorizontalAlignment="Center" Margin="0 5 0 0" DataContext="{Binding ErrorMessageViewModel}" />
+    </StackPanel>
+</UserControl>

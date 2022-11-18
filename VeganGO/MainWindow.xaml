@@ -3,10 +3,84 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VeganGO"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:VeganGO.Controls"
+        xmlns:viewModels="clr-namespace:VeganGO.ViewModels"
+        Style="{StaticResource MaterialDesignWindow}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="VeganGO"
+        Height="600"
+        Width="800"
+        Icon="/Resources/Logo.ico">
+    <DockPanel>
+        <materialDesign:ColorZone Padding="16"
+                                  materialDesign:ElevationAssist.Elevation="Dp4"
+                                  DockPanel.Dock="Top"
+                                  Mode="PrimaryMid">
+            <materialDesign:ColorZone.Style>
+                <Style TargetType="materialDesign:ColorZone">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </materialDesign:ColorZone.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ToggleButton Grid.Column="0"
+                              x:Name="MenuToggleButton"
+                              Click="MenuToggleButton_OnClick"
+                              Cursor="Hand"
+                              Width="30"
+                              Height="30"
+                              AutomationProperties.Name="HamburgerToggleButton"
+                              IsChecked="True"
+                              Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                <TextBlock Grid.Column="1" Margin="15 0 0 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           AutomationProperties.Name="Vegan GO"
+                           FontSize="22"
+                           Text="Vegan GO" />
+                <TextBlock Grid.Column="2"
+                           Margin="0 0 10 0"
+                           Text="{Binding Login}"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Column="3" VerticalAlignment="Center">
+                    <Hyperlink Command="{Binding UpdateCurrentViewModelCommand}"
+                               CommandParameter="{x:Static viewModels:ViewType.Login}">Выход</Hyperlink>
+                </TextBlock>
+            </Grid>
+        </materialDesign:ColorZone>
+        <materialDesign:Card x:Name="MenuCard" 
+                             DockPanel.Dock="Left"
+                             materialDesign:ElevationAssist.Elevation="Dp4"
+                             UniformCornerRadius="0"
+                             Background="#E8E8E8"
+                             Width="200">
+            <materialDesign:Card.Style>
+                <Style TargetType="materialDesign:Card">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </materialDesign:Card.Style>
+            <controls:Menu />
+        </materialDesign:Card>
+        <ScrollViewer Background="#EEEEEE"
+                      DockPanel.Dock="Right"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </ScrollViewer>
+    </DockPanel>
 </Window>

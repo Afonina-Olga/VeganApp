@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="VeganGO.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:slides="clr-namespace:VeganGO.Views.Slides"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <materialDesign:Transitioner
+            AutoApplyTransitionOrigins="True"
+            SelectedIndex="0">
+            <materialDesign:Transitioner.InputBindings>
+                <KeyBinding
+                    Key="Left"
+                    Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" />
+                <KeyBinding
+                    Key="Right"
+                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
+            </materialDesign:Transitioner.InputBindings>
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect ExpandIn}">
+                <slides:Slide1 />
+            </materialDesign:TransitionerSlide>
+            
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft}">
+                <slides:Slide2 />
+            </materialDesign:TransitionerSlide>
+            
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromTop}">
+                <slides:Slide3 />
+            </materialDesign:TransitionerSlide>
+            
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}">
+                <slides:Slide4 />
+            </materialDesign:TransitionerSlide>
+            
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom}">
+                <slides:Slide5 />
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+    </Grid>
+</UserControl>
