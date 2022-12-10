@@ -10,6 +10,7 @@ namespace VeganGO.ViewModels
         private readonly IStore _store;
         private readonly IUserRepository _userRepository;
         private readonly ITagRepository _tagRepository;
+        private readonly IMaterialRepository _materialRepository;
 
         public bool IsLoggedIn => !string.IsNullOrEmpty(Login);
 
@@ -48,6 +49,7 @@ namespace VeganGO.ViewModels
             _store = store;
             _userRepository = userRepository;
             _tagRepository = tagRepository;
+            _materialRepository = materialRepository;
             CurrentViewModel = new LoginViewModel(store, userRepository, materialRepository, tagRepository);
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store, userRepository, tagRepository, materialRepository);
             _store.CurrentViewModelUpdated += OnCurrentViewModelUpdated;
@@ -64,14 +66,13 @@ namespace VeganGO.ViewModels
         private void OnUserAuthorized(string login)
         {
             Login = login;
-            CurrentViewModel = new AboutViewModel();
+            CurrentViewModel = new RecipesViewModel(_materialRepository, _tagRepository, _store);
             OnPropertyChanged(nameof(IsLoggedIn));
         }
 
         private void OnCurrentViewModelUpdated(ViewModelBase viewModel)
         {
             CurrentViewModel = viewModel;
-            
         }
 
         public override void Dispose()

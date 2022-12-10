@@ -35,7 +35,6 @@ namespace VeganGO.Commands
                 ViewType.Articles => new ArticlesViewModel(_materialRepository, _tagRepository, _store),
                 ViewType.Recipes => new RecipesViewModel(_materialRepository, _tagRepository, _store),
                 ViewType.Utilities => new UtilitiesViewModel(_materialRepository, _tagRepository, _store),
-                ViewType.About => new AboutViewModel(),
                 ViewType.Registration => new RegistrationViewModel(_store, _userRepository, _materialRepository,
                     _tagRepository),
                 ViewType.Login => new LoginViewModel(_store, _userRepository, _materialRepository, _tagRepository),

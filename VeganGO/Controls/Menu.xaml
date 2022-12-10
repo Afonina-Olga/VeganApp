@@ -61,32 +61,6 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="1"
-                    Height="60"
-                    x:Name="AboutMenuButton"
-                    Command="{Binding UpdateCurrentViewModelCommand}"
-                    CommandParameter="{x:Static viewModels:ViewType.About}"
-                    MouseEnter="MenuButton_MouseEnter"
-                    Click="MenuButton_Click">
-                <Grid VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon
-                        Grid.Column="0"
-                        Kind="FruitGrapes"
-                        Foreground="{StaticResource MenuTextBrush}"
-                        Width="24"
-                        Height="24" />
-                    <TextBlock Grid.Column="1" Text="О веганстве" />
-                </Grid>
-                <Button.ToolTip>
-                    <ToolTip x:Name="AboutTooltip"
-                             Content="О веганстве"
-                             Style="{StaticResource MenuTooltipStyle}" />
-                </Button.ToolTip>
-            </Button>
             <Button Grid.Row="2"
                     Height="60"
                     x:Name="RecipesMenuButton"

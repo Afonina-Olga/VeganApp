@@ -23,10 +23,9 @@ namespace VeganGO.Controls
 
             var index = button.Name switch
             {
-                "AboutMenuButton" => 0,
-                "RecipesMenuButton" => 1,
-                "ArticlesMenuButton" => 2,
-                "UtilitiesMenuButton" => 3,
+                "RecipesMenuButton" => 0,
+                "ArticlesMenuButton" => 1,
+                "UtilitiesMenuButton" => 2,
                 _ => 0
             };
 
@@ -48,14 +47,12 @@ namespace VeganGO.Controls
 
             if (button is { IsChecked: false })
             {
-                AboutTooltip.Visibility = Visibility.Visible;
                 ArticlesTooltip.Visibility = Visibility.Visible;
                 RecipesTooltip.Visibility = Visibility.Visible;
                 UtilitiesTooltip.Visibility = Visibility.Visible;
             }
             else
             {
-                AboutTooltip.Visibility = Visibility.Collapsed;
                 ArticlesTooltip.Visibility = Visibility.Collapsed;
                 RecipesTooltip.Visibility = Visibility.Collapsed;
                 UtilitiesTooltip.Visibility = Visibility.Collapsed;
