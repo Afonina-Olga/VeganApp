@@ -46,6 +46,7 @@ namespace VeganGO.ViewModels
         // ReSharper disable once MemberCanBePrivate.Global
         public MessageViewModel ErrorMessageViewModel { get; }
         
+        // ReSharper disable once MemberCanBePrivate.Global
         public ICommand LoginCommand { get; }
         
         public LoginViewModel(

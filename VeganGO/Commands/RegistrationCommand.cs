@@ -12,13 +12,22 @@ namespace VeganGO.Commands
     {
         private readonly RegistrationViewModel _viewModel;
         private readonly IUserRepository _userRepository;
+        private readonly IMaterialRepository _materialRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly IStore _store;
 
-        public RegistrationCommand(RegistrationViewModel viewModel, IUserRepository userRepository, IStore store)
+        public RegistrationCommand(
+            RegistrationViewModel viewModel,
+            IUserRepository userRepository,
+            IMaterialRepository materialRepository,
+            ITagRepository tagRepository,
+            IStore store)
         {
             _viewModel = viewModel;
             _userRepository = userRepository;
             _store = store;
+            _materialRepository = materialRepository;
+            _tagRepository = tagRepository;
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -43,9 +52,13 @@ namespace VeganGO.Commands
                     PhoneNumber = _viewModel.Phone.Trim()
                 });
 
-                _store.Login(login);
+                _store.UpdateCurrentViewModel(new LoginViewModel(
+                    _store,
+                    _userRepository,
+                    _materialRepository,
+                    _tagRepository));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _viewModel.ErrorMessage = "Не удалось зарегистрироваться";
             }

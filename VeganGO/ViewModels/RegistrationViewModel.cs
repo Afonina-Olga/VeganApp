@@ -25,6 +25,7 @@ namespace VeganGO.ViewModels
         
         private string _firstname;
         [Required(ErrorMessage = "Не заполнено")]
+        [RegularExpression(@"^\p{IsCyrillic}+$", ErrorMessage = "Допустимы только кириллические символы без пробелов")]
         public string FirstName
         {
             get => _firstname;
@@ -38,6 +39,7 @@ namespace VeganGO.ViewModels
         
         private string _lastName;
         [Required(ErrorMessage = "Не заполнено")]
+        [RegularExpression(@"^\p{IsCyrillic}+$", ErrorMessage = "Допустимы только кириллические символы без пробелов")]
         public string LastName
         {
             get => _lastName;
@@ -51,6 +53,7 @@ namespace VeganGO.ViewModels
         
         private string _middleName;
         [Required(ErrorMessage = "Не заполнено")]
+        [RegularExpression(@"^\p{IsCyrillic}+$", ErrorMessage = "Допустимы только кириллические символы без пробелов")]
         public string MiddleName
         {
             get => _middleName;
@@ -124,7 +127,7 @@ namespace VeganGO.ViewModels
         {
             _store = store;
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store, repository, tagRepository, materialRepository);
-            RegistrationCommand = new RegistrationCommand(this, repository, store);
+            RegistrationCommand = new RegistrationCommand(this, repository, materialRepository, tagRepository, store);
             ErrorMessageViewModel = new MessageViewModel();
         }
     }
