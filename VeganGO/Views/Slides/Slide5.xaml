@@ -4,25 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:VeganGO.ViewModels"
+             xmlns:viewModels="clr-namespace:VeganGO.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <FlowDocumentScrollViewer Grid.Row="0">
             <FlowDocument>
-               <Paragraph>
-                   <Floater HorizontalAlignment="Left" Margin="0,0,5,5" Padding="3">
-                       <BlockUIContainer BorderThickness="1">
-                           <StackPanel>
-                               <Image Source="/Images/About/image3.jpg" Margin="5" />
-                           </StackPanel>
-                       </BlockUIContainer>
-                   </Floater>
-                   Если вас заботят животные, переходите на веганство сами и агитируйте других к веганству, и ни к чему меньшему. Для перехода на веганство не нужны никакие маленькие шаги, оно безопасно для здоровья и не требует постепенного перехода. А если кто-то убеждает вас, что вегетарианство — необходимый этап на пути к веганству, вспомните Пола Маккартни, который «в пути» уже больше 40 лет.
-               </Paragraph>
+                <Paragraph>
+                    <Floater HorizontalAlignment="Left" Margin="0,0,5,5" Padding="3">
+                        <BlockUIContainer BorderThickness="1">
+                            <StackPanel>
+                                <Image Source="/Images/About/image3.jpg" Margin="5" />
+                            </StackPanel>
+                        </BlockUIContainer>
+                    </Floater>
+                    Если вас заботят животные, переходите на веганство сами и агитируйте других к веганству, и ни к чему меньшему. Для перехода на веганство не нужны никакие маленькие шаги, оно безопасно для здоровья и не требует постепенного перехода. А если кто-то убеждает вас, что вегетарианство — необходимый этап на пути к веганству, вспомните Пола Маккартни, который «в пути» уже больше 40 лет.
+                </Paragraph>
             </FlowDocument>
         </FlowDocumentScrollViewer>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -35,7 +37,8 @@
             <Button Style="{StaticResource MaterialDesignIconButton}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}">
+                    Command="{Binding UpdateCurrentViewModelCommand}"
+                    CommandParameter="{x:Static viewModels:ViewType.Registration}">
                 <materialDesign:PackIcon Kind="ArrowRight" />
             </Button>
         </StackPanel>

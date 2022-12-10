@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewmodels="clr-namespace:VeganGO.ViewModels"
-             xmlns:views="clr-namespace:VeganGO.Views">
+             xmlns:views="clr-namespace:VeganGO.Views"
+             xmlns:slides="clr-namespace:VeganGO.Views.Slides">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -36,7 +36,7 @@
             </materialDesign:TransitionerSlide>
             
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom}">
-                <slides:Slide5 />
+                <slides:Slide5 DataContext="{Binding Slide5ViewModel}"/>
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </Grid>

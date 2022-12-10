@@ -38,6 +38,7 @@ namespace VeganGO.Commands
                 ViewType.Registration => new RegistrationViewModel(_store, _userRepository, _materialRepository,
                     _tagRepository),
                 ViewType.Login => new LoginViewModel(_store, _userRepository, _materialRepository, _tagRepository),
+                ViewType.About => new AboutViewModel(_store, _userRepository, _materialRepository, _tagRepository),
                 _ => throw new ArgumentException()
             };
 
