@@ -26,7 +26,7 @@
                      Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Column="1"
                     Style="{StaticResource MaterialDesignIconButton}"
-                    Command="{Binding LoadArticlesCommand}">
+                    Command="{Binding FindArticlesByFilterCommand}">
                 <materialDesign:PackIcon Kind="Magnify" />
             </Button>
         </Grid>
@@ -86,7 +86,7 @@
                                         </TextBlock>
                                         <materialDesign:RatingBar
                                             x:Name="BasicRatingBar"
-                                            IsEnabled="False"
+                                            IsEnabled="True"
                                             Value="3" />
                                         <ItemsControl Margin="0 5 0 0"
                                                       ItemsSource="{Binding Tags}">
@@ -113,35 +113,39 @@
                                     </StackPanel>
                                     <StackPanel
                                         Grid.Row="2"
-                                        Margin="8"
+                                        Margin="8 8 20 8"
                                         HorizontalAlignment="Right"
                                         Orientation="Horizontal">
                                         <Button
                                             Width="30"
                                             Padding="2,0,2,0"
                                             materialDesign:RippleAssist.IsCentered="True"
-                                            Style="{StaticResource MaterialDesignToolButton}">
+                                            Style="{StaticResource MaterialDesignToolButton}"
+                                            ToolTip="Редактировать">
                                             <materialDesign:PackIcon
-                                                Kind="ShareVariant" />
+                                                Kind="Edit" />
                                         </Button>
                                         <Button
                                             Width="30"
                                             Padding="2,0,2,0"
                                             materialDesign:RippleAssist.IsCentered="True"
-                                            Style="{StaticResource MaterialDesignToolButton}">
+                                            Style="{StaticResource MaterialDesignToolButton}"
+                                            ToolTip="Удалить">
                                             <materialDesign:PackIcon
-                                                Kind="Heart" />
+                                                Kind="Delete" />
                                         </Button>
-                                        <materialDesign:PopupBox
-                                            Padding="2,0,2,0"
-                                            Style="{StaticResource MaterialDesignToolPopupBox}">
-                                            <StackPanel>
-                                                <Button
-                                                    Content="More" />
-                                                <Button
-                                                    Content="Options" />
-                                            </StackPanel>
-                                        </materialDesign:PopupBox>
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsAdmin}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsAdmin}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
                                     </StackPanel>
                                 </Grid>
                             </materialDesign:Card>

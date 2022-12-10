@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
+using VeganGO.Infrastructure;
 using VeganGO.Repositories;
 using VeganGO.State;
 using VeganGO.ViewModels;
@@ -27,12 +28,14 @@ namespace VeganGO.Commands
         {
             try
             {
-                var isValid = await _repository.IsValid(_viewModel.Login.Trim(), _viewModel.Password.Trim());
-                if (!isValid)
+                var user = await _repository.Get(_viewModel.Login.Trim(), _viewModel.Password.Trim());
+                if (user == null)
+                {
                     _viewModel.ErrorMessage = "Неверный логин или пароль";
+                }
                 else
                 {
-                    _store.Login(_viewModel.Login);
+                    _store.Login(_viewModel.Login, user.Role == Role.Admin);
                 }
             }
             catch

@@ -29,7 +29,8 @@ namespace VeganGO.Infrastructure
                     FirstName = "Марина",
                     LastName = "Иванова",
                     MiddleName = "Сергеевна",
-                    PhoneNumber = "+79261235469"
+                    PhoneNumber = "+79261235469",
+                    Role = Role.Admin
                 }
             );
         }

@@ -7,5 +7,6 @@ namespace VeganGO.Repositories
     {
         Task<bool> IsExists(string login);
         Task<bool> IsValid(string login, string password);
+        Task<User> Get(string login, string password);
     }
 }

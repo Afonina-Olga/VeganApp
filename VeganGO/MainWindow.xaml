@@ -23,6 +23,9 @@
                         <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </materialDesign:ColorZone.Style>
@@ -70,6 +73,9 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

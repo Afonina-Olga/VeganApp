@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -46,17 +47,17 @@ namespace VeganGO.Repositories
         {
             await using var context = _contextFactory.CreateDbContext();
 
-            var result = context
+            var result = await context
                 .Articles
                 .Include(x => x.Tags)
-                .AsQueryable();
+                .ToListAsync();
 
             if (filter != null)
             {
-                result = result.Where(x => x.Name.Contains(filter));
+                result = result.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
             }
 
-            return await result.ToListAsync();
+            return result;
         }
 
         #endregion
@@ -69,7 +70,7 @@ namespace VeganGO.Repositories
             return await context
                 .Recipes
                 .Include(x => x.Tags)
-                .Include(x=>x.Ingredients)
+                .Include(x => x.Ingredients)
                 .ToListAsync();
         }
 
@@ -80,7 +81,7 @@ namespace VeganGO.Repositories
             var result = context
                 .Recipes
                 .Include(x => x.Tags)
-                .Include(x=>x.Ingredients)
+                .Include(x => x.Ingredients)
                 .AsQueryable();
 
             if (tags != null && tags.Any())
@@ -97,18 +98,18 @@ namespace VeganGO.Repositories
         {
             await using var context = _contextFactory.CreateDbContext();
 
-            var result = context
+            var result = await context
                 .Recipes
-                .Include(x=>x.Ingredients)
+                .Include(x => x.Ingredients)
                 .Include(x => x.Tags)
-                .AsQueryable();
+                .ToListAsync();
 
             if (filter != null)
             {
-                result = result.Where(x => x.Name.Contains(filter));
+                result = result.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
             }
 
-            return await result.ToListAsync();
+            return result;
         }
 
         #endregion
@@ -144,17 +145,17 @@ namespace VeganGO.Repositories
         {
             await using var context = _contextFactory.CreateDbContext();
 
-            var result = context
+            var result = await context
                 .Utilities
                 .Include(x => x.Tags)
-                .AsQueryable();
+                .ToListAsync();
 
             if (filter != null)
             {
-                result = result.Where(x => x.Name.Contains(filter));
+                result = result.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
             }
 
-            return await result.ToListAsync();
+            return result;
         }
 
         #endregion

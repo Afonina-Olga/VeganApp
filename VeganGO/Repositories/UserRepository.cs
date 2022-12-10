@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VeganGO.Infrastructure;
@@ -24,6 +25,12 @@ namespace VeganGO.Repositories
         {
             await using var context = _contextFactory.CreateDbContext();
             return await context.Users.AnyAsync(x => x.Login == login && x.Password == password);
+        }
+
+        public async Task<User> Get(string login, string password)
+        {
+            await using var context = _contextFactory.CreateDbContext();
+            return await context.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password);
         }
     }
 }

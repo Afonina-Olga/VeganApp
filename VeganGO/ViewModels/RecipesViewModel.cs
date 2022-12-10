@@ -9,6 +9,9 @@ namespace VeganGO.ViewModels
 {
     public class RecipeViewModel : ViewModelBase
     {
+        private readonly IStore _store;
+        public bool IsAdmin { get; set; } 
+        
         private string _text;
 
         public string Text
@@ -53,7 +56,9 @@ namespace VeganGO.ViewModels
 
         public RecipeViewModel(IStore store)
         {
+            _store = store;
             ShowCommand = new ShowCommand(this, store);
+            IsAdmin = store.IsAdminMode;
         }
     }
 

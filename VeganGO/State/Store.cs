@@ -11,15 +11,18 @@ namespace VeganGO.State
 
         private ViewModelBase _currentViewModel;
         private string _login;
+        public bool IsAdminMode { get; set; }
+        
         public void UpdateCurrentViewModel(ViewModelBase currentViewModel)
         {
             _currentViewModel = currentViewModel;
             CurrentViewModelUpdated?.Invoke(currentViewModel);
         }
 
-        public void Login(string login)
+        public void Login(string login, bool isAdmin)
         {
             _login = login;
+            IsAdminMode = isAdmin;
             UserAuthorized?.Invoke(login);
         }
 

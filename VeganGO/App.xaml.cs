@@ -33,9 +33,9 @@ namespace VeganGO
 
                 services.AddSingleton(s =>
                     new MainWindow(s.GetRequiredService<MainViewModel>()));
-               
-                services.AddPooledDbContextFactory<EfContext>(x => 
-                    x.UseSqlite("Data Source=VeganGO.db").UseLazyLoadingProxies());
+
+                services.AddPooledDbContextFactory<EfContext>(x =>
+                    x.UseSqlite("Data Source=VeganGO.db"));//.UseLazyLoadingProxies());
 
                 services.AddSingleton<IStore, Store>();
                 services.AddSingleton<IUserRepository, UserRepository>();

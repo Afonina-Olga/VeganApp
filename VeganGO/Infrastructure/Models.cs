@@ -19,6 +19,12 @@ namespace VeganGO.Infrastructure
         public  virtual List<Utility> Utilities { get; set; }
     }
 
+    public enum Role
+    {
+        Admin,
+        User
+    }
+
     public class User : Entity
     {
         public string FirstName { get; set; }
@@ -32,6 +38,8 @@ namespace VeganGO.Infrastructure
         public string PhoneNumber { get; set; }
 
         public string Password { get; set; }
+
+        public Role Role { get; set; }
     }
 
     public class Ingredient : Entity

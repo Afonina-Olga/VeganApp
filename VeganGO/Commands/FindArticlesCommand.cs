@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using VeganGO.Repositories;
@@ -43,7 +44,7 @@ namespace VeganGO.Commands
 
                 _viewModel.Articles = new ObservableCollection<ArticleViewModel>(vmArticles);
             }
-            catch
+            catch(Exception ex)
             {
                 _viewModel.ErrorMessage = "Не удалось загрузить статьи";
             }

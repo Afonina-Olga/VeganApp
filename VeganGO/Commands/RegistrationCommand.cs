@@ -59,7 +59,8 @@ namespace VeganGO.Commands
                     MiddleName = _viewModel.LastName.Trim(),
                     LastName = _viewModel.LastName.Trim(),
                     Password = _viewModel.Password.Trim(),
-                    PhoneNumber = _viewModel.Phone.Trim()
+                    PhoneNumber = _viewModel.Phone.Trim(),
+                    Role = Role.User
                 });
 
                 _store.UpdateCurrentViewModel(new LoginViewModel(

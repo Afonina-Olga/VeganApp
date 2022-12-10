@@ -70,6 +70,8 @@ namespace VeganGO.ViewModels
 
     public class ArticlesViewModel : MaterialBaseViewModel
     {
+        public bool IsAdmin { get; set; }
+        
         private ObservableCollection<ArticleViewModel> _articles;
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -101,6 +103,7 @@ namespace VeganGO.ViewModels
             IStore store)
             : base(repository, tagRepository, store)
         {
+            IsAdmin = store.IsAdminMode;
             LoadArticlesCommand = new LoadArticlesCommand(this, repository, store);
             LoadArticlesCommand.Execute(null);
             LoadTagsCommand = new LoadTagsCommand(this, tagRepository, TagType.Article);

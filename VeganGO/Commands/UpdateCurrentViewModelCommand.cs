@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using VeganGO.Infrastructure;
 using VeganGO.Repositories;
 using VeganGO.State;
 using VeganGO.ViewModels;
@@ -44,7 +45,7 @@ namespace VeganGO.Commands
 
             if (viewType == ViewType.Login)
             {
-                _store.Login(null);
+                _store.Login(null, false);
             }
 
             _store.UpdateCurrentViewModel(currentViewModel);
