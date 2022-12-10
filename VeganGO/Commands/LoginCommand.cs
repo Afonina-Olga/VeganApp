@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using VeganGO.Repositories;
 using VeganGO.State;
 using VeganGO.ViewModels;
@@ -19,6 +20,7 @@ namespace VeganGO.Commands
             _repository = repository;
             _viewModel = viewModel;
             _store = store;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -36,6 +38,16 @@ namespace VeganGO.Commands
             catch
             {
                 _viewModel.ErrorMessage = "Не удалось авторизироваться";
+            }
+        }
+
+        public override bool CanExecute(object parameter) => _viewModel.CanExecute;
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(LoginViewModel.CanExecute))
+            {
+                OnCanExecuteChanged();
             }
         }
     }

@@ -9,10 +9,12 @@ namespace VeganGO.ViewModels
     public class LoginViewModel : ValidationViewModel
     {
         private readonly IStore _store;
+
         // ReSharper disable once MemberCanBePrivate.Global
         public ICommand UpdateCurrentViewModelCommand { get; }
 
         private string _login;
+
         [Required(ErrorMessage = "Не заполнено")]
         public string Login
         {
@@ -22,10 +24,12 @@ namespace VeganGO.ViewModels
                 _login = value;
                 OnPropertyChanged(nameof(Login));
                 ValidateProperty(value, nameof(Login));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
-        
+
         private string _password;
+
         [Required(ErrorMessage = "Не заполнено")]
         public string Password
         {
@@ -35,9 +39,10 @@ namespace VeganGO.ViewModels
                 _password = value;
                 OnPropertyChanged(nameof(Password));
                 ValidateProperty(value, nameof(Password));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
-        
+
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
@@ -45,10 +50,14 @@ namespace VeganGO.ViewModels
 
         // ReSharper disable once MemberCanBePrivate.Global
         public MessageViewModel ErrorMessageViewModel { get; }
-        
+
         // ReSharper disable once MemberCanBePrivate.Global
         public ICommand LoginCommand { get; }
-        
+
+        public bool CanExecute => !HasErrors &&
+                                  !string.IsNullOrEmpty(Login) &&
+                                  !string.IsNullOrEmpty(Password);
+
         public LoginViewModel(
             IStore store,
             IUserRepository repository,
@@ -56,14 +65,10 @@ namespace VeganGO.ViewModels
             ITagRepository tagRepository)
         {
             _store = store;
-            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store, repository, tagRepository,  materialRepository);
+            UpdateCurrentViewModelCommand =
+                new UpdateCurrentViewModelCommand(store, repository, tagRepository, materialRepository);
             LoginCommand = new LoginCommand(this, repository, store);
             ErrorMessageViewModel = new MessageViewModel();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace VeganGO.ViewModels
                 _login = value;
                 OnPropertyChanged(nameof(Login));
                 ValidateProperty(value, nameof(Login));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -34,6 +35,7 @@ namespace VeganGO.ViewModels
                 _firstname = value;
                 OnPropertyChanged(nameof(FirstName));
                 ValidateProperty(value, nameof(FirstName));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -48,6 +50,7 @@ namespace VeganGO.ViewModels
                 _lastName = value;
                 OnPropertyChanged(nameof(LastName));
                 ValidateProperty(value, nameof(LastName));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -62,6 +65,7 @@ namespace VeganGO.ViewModels
                 _middleName = value;
                 OnPropertyChanged(nameof(MiddleName));
                 ValidateProperty(value, nameof(MiddleName));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -76,6 +80,7 @@ namespace VeganGO.ViewModels
                 _phone = value;
                 OnPropertyChanged(nameof(Phone));
                 ValidateProperty(value, nameof(Phone));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -89,6 +94,7 @@ namespace VeganGO.ViewModels
                 _password = value;
                 OnPropertyChanged(nameof(Password));
                 ValidateProperty(value, nameof(Password));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -103,6 +109,7 @@ namespace VeganGO.ViewModels
                 _confirmPassword = value;
                 OnPropertyChanged(nameof(ConfirmPassword));
                 ValidateProperty(value, nameof(ConfirmPassword));
+                OnPropertyChanged(nameof(CanExecute));
             }
         }
         
@@ -118,7 +125,16 @@ namespace VeganGO.ViewModels
         public ICommand UpdateCurrentViewModelCommand { get; }
         // ReSharper disable once MemberCanBePrivate.Global
         public ICommand RegistrationCommand { get; }
-        
+
+        public bool CanExecute => !HasErrors &&
+                                  !string.IsNullOrEmpty(Login) &&
+                                  !string.IsNullOrEmpty(Password) &&
+                                  !string.IsNullOrEmpty(FirstName) &&
+                                  !string.IsNullOrEmpty(LastName) &&
+                                  !string.IsNullOrEmpty(MiddleName) &&
+                                  !string.IsNullOrEmpty(Phone) &&
+                                  !string.IsNullOrEmpty(ConfirmPassword);
+
         public RegistrationViewModel(
             IStore store,
             IUserRepository repository,

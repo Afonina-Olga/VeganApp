@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using VeganGO.Infrastructure;
 using VeganGO.Repositories;
@@ -28,6 +29,15 @@ namespace VeganGO.Commands
             _store = store;
             _materialRepository = materialRepository;
             _tagRepository = tagRepository;
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(RegistrationViewModel.CanExecute))
+            {
+                OnCanExecuteChanged();
+            }
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -63,5 +73,8 @@ namespace VeganGO.Commands
                 _viewModel.ErrorMessage = "Не удалось зарегистрироваться";
             }
         }
+
+        public override bool CanExecute(object parameter) => _viewModel.CanExecute;
+
     }
 }
