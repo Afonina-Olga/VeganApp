@@ -9,6 +9,7 @@ namespace VeganGO.ViewModels
 {
     public class ArticleViewModel : ViewModelBase
     {
+        public int Id { get; set; }
         private string _text;
 
         public string Text
@@ -62,16 +63,22 @@ namespace VeganGO.ViewModels
         // ReSharper disable once MemberCanBePrivate.Global
         public ICommand ShowCommand { get; }
 
-        public ArticleViewModel(IStore store)
+        // ReSharper disable once MemberCanBePrivate.Global
+        public ICommand DeleteCommand { get; }
+        public ICommand UpdateCommand { get; }
+
+        public ArticleViewModel(IStore store, IMaterialRepository materialRepository)
         {
             ShowCommand = new ShowCommand(this, store);
+            DeleteCommand = new DeleteArticleCommand(this, materialRepository, store);
         }
     }
 
     public class ArticlesViewModel : MaterialBaseViewModel
     {
+        private readonly IStore _store;
         public bool IsAdmin { get; set; }
-        
+
         private ObservableCollection<ArticleViewModel> _articles;
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -103,6 +110,8 @@ namespace VeganGO.ViewModels
             IStore store)
             : base(repository, tagRepository, store)
         {
+            _store = store;
+            _store.ArticlesChanged += OnArticlesChanged;
             IsAdmin = store.IsAdminMode;
             LoadArticlesCommand = new LoadArticlesCommand(this, repository, store);
             LoadArticlesCommand.Execute(null);
@@ -110,6 +119,18 @@ namespace VeganGO.ViewModels
             LoadTagsCommand.Execute(null);
             FindArticlesByFilterCommand = new FindArticlesByNameCommand(this, repository, store);
             FindArticlesByTagsCommand = new FindArticlesByTagsCommand(this, repository, store);
+        }
+
+
+        private void OnArticlesChanged()
+        {
+            LoadArticlesCommand.Execute(null);
+        }
+
+        public override void Dispose()
+        {
+            _store.ArticlesChanged -= OnArticlesChanged;
+            base.Dispose();
         }
     }
 }

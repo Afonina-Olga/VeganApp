@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VeganGO.Commands;
 using VeganGO.Infrastructure;
@@ -9,6 +10,7 @@ namespace VeganGO.ViewModels
 {
     public class RecipeViewModel : ViewModelBase
     {
+        public int Id { get; set; }
         private readonly IStore _store;
         public bool IsAdmin { get; set; } 
         
@@ -53,17 +55,20 @@ namespace VeganGO.ViewModels
         
         // ReSharper disable once MemberCanBePrivate.Global
         public ICommand ShowCommand { get; }
+        public ICommand DeleteCommand { get; }
 
-        public RecipeViewModel(IStore store)
+        public RecipeViewModel(IStore store, IMaterialRepository materialRepository)
         {
             _store = store;
             ShowCommand = new ShowCommand(this, store);
+            DeleteCommand = new DeleteRecipeCommand(this, materialRepository, store);
             IsAdmin = store.IsAdminMode;
         }
     }
 
     public class RecipesViewModel : MaterialBaseViewModel
     {
+        private readonly IStore _store;
         private ObservableCollection<RecipeViewModel> _recipes;
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -92,12 +97,19 @@ namespace VeganGO.ViewModels
         public RecipesViewModel(IMaterialRepository repository, ITagRepository tagRepository, IStore store)
             : base(repository, tagRepository, store)
         {
+            _store = store;
+            _store.RecipesChanged += OnRecipesChanged;
             LoadRecipesCommand = new LoadRecipesCommand(this, repository, store);
             LoadRecipesCommand.Execute(null);
             LoadTagsCommand = new LoadTagsCommand(this, tagRepository, TagType.Recipe);
             LoadTagsCommand.Execute(null);
             FindRecipesByFilterCommand = new FindRecipesByNameCommand(this, repository, store);
             FindRecipesByTagsCommand = new FindRecipesByTagsCommand(this, repository, store);
+        }
+
+        private void OnRecipesChanged()
+        {
+            LoadRecipesCommand.Execute(null);
         }
     }
 }

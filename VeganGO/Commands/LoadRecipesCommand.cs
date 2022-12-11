@@ -28,8 +28,9 @@ namespace VeganGO.Commands
                 var recipes = await _materialRepository.FindRecipeByFilter(_viewModel.Filter);
 
                 _viewModel.Recipes = new ObservableCollection<RecipeViewModel>(recipes
-                    .Select(x => new RecipeViewModel(_store)
+                    .Select(x => new RecipeViewModel(_store, _materialRepository)
                     {
+                        Id=x.Id,
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
                         Name = x.Name,

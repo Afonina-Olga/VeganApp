@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using VeganGO.Infrastructure;
-using VeganGO.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using VeganGO.State;
 using VeganGO.ViewModels;
 
@@ -10,20 +9,10 @@ namespace VeganGO.Commands
     public class UpdateCurrentViewModelCommand : ICommand
     {
         private readonly IStore _store;
-        private readonly IUserRepository _userRepository;
-        private readonly IMaterialRepository _materialRepository;
-        private readonly ITagRepository _tagRepository;
 
-        public UpdateCurrentViewModelCommand(
-            IStore store,
-            IUserRepository userRepository,
-            ITagRepository tagRepository,
-            IMaterialRepository materialRepository)
+        public UpdateCurrentViewModelCommand(IStore store)
         {
             _store = store;
-            _userRepository = userRepository;
-            _materialRepository = materialRepository;
-            _tagRepository = tagRepository;
         }
 
         public bool CanExecute(object parameter) => true;
@@ -33,13 +22,15 @@ namespace VeganGO.Commands
             if (!(parameter is ViewType viewType)) return;
             ViewModelBase currentViewModel = viewType switch
             {
-                ViewType.Articles => new ArticlesViewModel(_materialRepository, _tagRepository, _store),
-                ViewType.Recipes => new RecipesViewModel(_materialRepository, _tagRepository, _store),
-                ViewType.Utilities => new UtilitiesViewModel(_materialRepository, _tagRepository, _store),
-                ViewType.Registration => new RegistrationViewModel(_store, _userRepository, _materialRepository,
-                    _tagRepository),
-                ViewType.Login => new LoginViewModel(_store, _userRepository, _materialRepository, _tagRepository),
-                ViewType.About => new AboutViewModel(_store, _userRepository, _materialRepository, _tagRepository),
+                ViewType.Articles => App.Services.GetRequiredService<ArticlesViewModel>(),
+                ViewType.Recipes => App.Services.GetRequiredService<RecipesViewModel>(),
+                ViewType.Utilities => App.Services.GetRequiredService<UtilitiesViewModel>(),
+                ViewType.Registration => App.Services.GetRequiredService<RegistrationViewModel>(),
+                ViewType.Login => App.Services.GetRequiredService<LoginViewModel>(),
+                ViewType.About => App.Services.GetRequiredService<AboutViewModel>(),
+                ViewType.ArticleFull => App.Services.GetRequiredService<ArticleViewModel>(),
+                ViewType.RecipeFull => App.Services.GetRequiredService<RecipeViewModel>(),
+                ViewType.UtilityFull => App.Services.GetRequiredService<UtilityViewModel>(),
                 _ => throw new ArgumentException()
             };
 

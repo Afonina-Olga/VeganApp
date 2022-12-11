@@ -1,5 +1,4 @@
 ﻿using System;
-using VeganGO.Infrastructure;
 using VeganGO.ViewModels;
 
 namespace VeganGO.State
@@ -10,8 +9,15 @@ namespace VeganGO.State
         event Action<ViewModelBase> CurrentViewModelUpdated;
         event Action<string> UserAuthorized;
         event Action UserLogout;
+        event Action ArticlesChanged;
+        event Action UtilitiesChanged;
+        event Action RecipesChanged;
+        
         void UpdateCurrentViewModel(ViewModelBase currentViewModel);
         void Login(string login, bool isAdmin);
         void Logout();
+        void UpdateArticles();
+        void UpdateRecipes();
+        void UpdateUtilities();
     }
 }

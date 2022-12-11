@@ -30,7 +30,7 @@ namespace VeganGO.Commands
                 var recipes = await _materialRepository.FindUtilityByFilter(_viewModel.Filter);
 
                 var vmUtilities = recipes.Select(x =>
-                    new UtilityViewModel(_store)
+                    new UtilityViewModel(_store, _materialRepository)
                     {
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
@@ -79,8 +79,9 @@ namespace VeganGO.Commands
                         .ToArray());
 
                 var vmUtilities = recipes.Select(x =>
-                    new UtilityViewModel(_store)
+                    new UtilityViewModel(_store, _repository)
                     {
+                        Id = x.Id,
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
                         Name = x.Name,

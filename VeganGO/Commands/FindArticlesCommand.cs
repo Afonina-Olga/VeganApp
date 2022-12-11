@@ -28,7 +28,7 @@ namespace VeganGO.Commands
                 var articles = await _materialRepository.FindArticleByFilter(_viewModel.Filter);
 
                 var vmArticles = articles.Select(x =>
-                    new ArticleViewModel(_store)
+                    new ArticleViewModel(_store, _materialRepository)
                     {
                         Description = x.Description,
                         Text = x.Text,
@@ -75,7 +75,7 @@ namespace VeganGO.Commands
                         .ToArray());
 
                 var vmArticles = articles.Select(x =>
-                    new ArticleViewModel(_store)
+                    new ArticleViewModel(_store, _materialRepository)
                     {
                         Description = x.Description,
                         Text = x.Text,

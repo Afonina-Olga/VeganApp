@@ -16,7 +16,7 @@ namespace VeganGO.ViewModels
             ITagRepository tagRepository)
         {
             UpdateCurrentViewModelCommand =
-                new UpdateCurrentViewModelCommand(store, repository, tagRepository, materialRepository);
+                new UpdateCurrentViewModelCommand(store);
         }
     }
 }

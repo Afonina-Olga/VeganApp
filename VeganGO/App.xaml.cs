@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,10 +16,12 @@ namespace VeganGO
     public partial class App : Application
     {
         private readonly IHost _host;
+        public static IServiceProvider Services { get; set; }
 
         public App()
         {
             _host = CreateHostBuilder().Build();
+            Services = _host.Services;
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args = null)
@@ -30,6 +33,12 @@ namespace VeganGO
                 services.AddTransient<LoginViewModel>();
                 services.AddTransient<RegistrationViewModel>();
                 services.AddTransient<ArticleViewModel>();
+                services.AddTransient<UtilityViewModel>();
+                services.AddTransient<RecipeViewModel>();
+                services.AddTransient<ArticlesViewModel>();
+                services.AddTransient<UtilitiesViewModel>();
+                services.AddTransient<RecipesViewModel>();
+                services.AddTransient<AboutViewModel>();
 
                 services.AddSingleton(s =>
                     new MainWindow(s.GetRequiredService<MainViewModel>()));

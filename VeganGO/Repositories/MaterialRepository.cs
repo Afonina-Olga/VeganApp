@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using VeganGO.Commands;
 using VeganGO.Infrastructure;
 
 namespace VeganGO.Repositories
@@ -60,6 +61,26 @@ namespace VeganGO.Repositories
             return result;
         }
 
+        public async Task<bool> DeleteArticle(int id)
+        {
+            await using var context = _contextFactory.CreateDbContext();
+            var entity = await context.Articles.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null) return false;
+            context.Articles.Remove(entity);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<Article> UpdateArticle(int id, Article article)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Article> CreateArticle(Article article)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Recipe
@@ -112,6 +133,26 @@ namespace VeganGO.Repositories
             return result;
         }
 
+        public async Task<bool> DeleteRecipe(int id)
+        {
+            await using var context = _contextFactory.CreateDbContext();
+            var entity = await context.Recipes.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null) return false;
+            context.Recipes.Remove(entity);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<Recipe> UpdateRecipe(int id, Recipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Recipe> CreateRecipe(Recipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Utility
@@ -156,6 +197,26 @@ namespace VeganGO.Repositories
             }
 
             return result;
+        }
+
+        public async Task<bool> DeleteUtility(int id)
+        {
+            await using var context = _contextFactory.CreateDbContext();
+            var entity = await context.Utilities.FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null) return false;
+            context.Utilities.Remove(entity);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<Utility> UpdateUtility(int id, Utility utility)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Utility> CreateUtility(Utility utility)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

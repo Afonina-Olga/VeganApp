@@ -28,8 +28,9 @@ namespace VeganGO.Commands
                 var utilities = await _materialRepository.FindUtilityByFilter(_viewModel.Filter);
 
                 _viewModel.Utilities = new ObservableCollection<UtilityViewModel>(utilities
-                    .Select(x => new UtilityViewModel(_store)
+                    .Select(x => new UtilityViewModel(_store, _materialRepository)
                     {
+                        Id = x.Id,
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
                         Name = x.Name,

@@ -10,6 +10,7 @@ namespace VeganGO.ViewModels
 {
     public class UtilityViewModel : ViewModelBase
     {
+        public int Id { get; set; }
         private string _text;
 
         public string Text
@@ -45,7 +46,7 @@ namespace VeganGO.ViewModels
                 OnPropertyChanged(nameof(ImagePath));
             }
         }
-        
+
         private string _description;
 
         public string Description
@@ -59,6 +60,7 @@ namespace VeganGO.ViewModels
         }
 
         private string _author;
+
         public string Author
         {
             get => _author;
@@ -68,8 +70,9 @@ namespace VeganGO.ViewModels
                 OnPropertyChanged(nameof(Author));
             }
         }
-        
+
         private DateTime _publishDate;
+
         public DateTime PublishDate
         {
             get => _publishDate;
@@ -81,19 +84,23 @@ namespace VeganGO.ViewModels
         }
 
         public ObservableCollection<TagViewModel> Tags { get; set; }
-        
-        public ICommand ShowCommand { get; }
 
-        public UtilityViewModel(IStore store)
+        public ICommand ShowCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand UpdateCommand { get; }
+
+        public UtilityViewModel(IStore store, IMaterialRepository materialRepository)
         {
             ShowCommand = new ShowCommand(this, store);
+            DeleteCommand = new DeleteUtilityCommand(this, materialRepository, store);
         }
     }
 
     public class UtilitiesViewModel : MaterialBaseViewModel
     {
+        private readonly IStore _store;
         public bool IsAdmin { get; set; }
-        
+
         private ObservableCollection<UtilityViewModel> _utilities;
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -125,6 +132,8 @@ namespace VeganGO.ViewModels
             IStore store)
             : base(repository, tagRepository, store)
         {
+            _store = store;
+            _store.UtilitiesChanged += OnUtillitiesChanged;
             IsAdmin = store.IsAdminMode;
             LoadUtilitiesCommand = new LoadUtilitiesCommand(this, repository, store);
             LoadUtilitiesCommand.Execute(null);
@@ -132,6 +141,16 @@ namespace VeganGO.ViewModels
             LoadTagsCommand.Execute(null);
             FindUtilitiesByFilterCommand = new FindUtilitiesByNameCommand(this, repository, store);
             FindUtilitiesByTagsCommand = new FindUtilitiesByTagsCommand(this, repository, store);
+        }
+
+        private void OnUtillitiesChanged()
+        {
+            LoadUtilitiesCommand.Execute(null);
+        }
+
+        public override void Dispose()
+        {
+            _store.UtilitiesChanged -= OnUtillitiesChanged;
         }
     }
 }

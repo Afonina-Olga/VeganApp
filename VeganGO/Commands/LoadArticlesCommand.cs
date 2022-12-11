@@ -28,8 +28,9 @@ namespace VeganGO.Commands
                 var articles = await _materialRepository.FindArticleByFilter(_viewModel.Filter);
 
                 _viewModel.Articles = new ObservableCollection<ArticleViewModel>(articles
-                    .Select(x => new ArticleViewModel(_store)
+                    .Select(x => new ArticleViewModel(_store, _materialRepository)
                     {
+                        Id=x.Id,
                         Description = x.Description,
                         Text = x.Text,
                         ImagePath = x.MainImagePath,

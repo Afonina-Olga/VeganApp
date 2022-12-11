@@ -51,7 +51,7 @@ namespace VeganGO.ViewModels
             _tagRepository = tagRepository;
             _materialRepository = materialRepository;
             CurrentViewModel = new LoginViewModel(store, userRepository, materialRepository, tagRepository);
-            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store, userRepository, tagRepository, materialRepository);
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store);
             _store.CurrentViewModelUpdated += OnCurrentViewModelUpdated;
             _store.UserAuthorized += OnUserAuthorized;
             _store.UserLogout += OnUserLogout;

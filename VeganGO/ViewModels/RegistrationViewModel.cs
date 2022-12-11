@@ -142,7 +142,7 @@ namespace VeganGO.ViewModels
             ITagRepository tagRepository)
         {
             _store = store;
-            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store, repository, tagRepository, materialRepository);
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(store);
             RegistrationCommand = new RegistrationCommand(this, repository, materialRepository, tagRepository, store);
             ErrorMessageViewModel = new MessageViewModel();
         }

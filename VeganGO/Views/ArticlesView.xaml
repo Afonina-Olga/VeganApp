@@ -130,7 +130,9 @@
                                             Padding="2,0,2,0"
                                             materialDesign:RippleAssist.IsCentered="True"
                                             Style="{StaticResource MaterialDesignToolButton}"
-                                            ToolTip="Удалить">
+                                            ToolTip="Удалить"
+                                            Command="{Binding DeleteCommand}"
+                                            CommandParameter="{Binding Id}">
                                             <materialDesign:PackIcon
                                                 Kind="Delete" />
                                         </Button>

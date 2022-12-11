@@ -28,7 +28,7 @@ namespace VeganGO.Commands
                 var recipes = await _materialRepository.FindRecipeByFilter(_viewModel.Filter);
 
                 var vmRecipes = recipes.Select(x =>
-                    new RecipeViewModel(_store)
+                    new RecipeViewModel(_store, _materialRepository)
                     {
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
@@ -80,8 +80,9 @@ namespace VeganGO.Commands
                         .ToArray());
 
                 var vmRecipes = recipes.Select(x =>
-                    new RecipeViewModel(_store)
+                    new RecipeViewModel(_store, _repository)
                     {
+                        Id= x.Id,
                         Text = x.Text,
                         ImagePath = x.MainImagePath,
                         Name = x.Name,

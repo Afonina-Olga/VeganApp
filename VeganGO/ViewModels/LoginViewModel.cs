@@ -66,7 +66,7 @@ namespace VeganGO.ViewModels
         {
             _store = store;
             UpdateCurrentViewModelCommand =
-                new UpdateCurrentViewModelCommand(store, repository, tagRepository, materialRepository);
+                new UpdateCurrentViewModelCommand(store);
             LoginCommand = new LoginCommand(this, repository, store);
             ErrorMessageViewModel = new MessageViewModel();
         }
